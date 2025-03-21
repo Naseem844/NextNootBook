@@ -8,7 +8,7 @@ import { HiPencilAlt } from "react-icons/hi";
 export async function getServerSideProps() {
   console.log("getServerSideProps() called")
   try {
-    const res = await fetch("http://localhost:3000/api/topics", {
+    const res = await fetch("https://next-noot-book.vercel.app/api/topics", {
       cache: "no-store",
     });
 
