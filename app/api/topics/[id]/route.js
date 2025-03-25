@@ -24,7 +24,10 @@ export async function PUT(request,{params}) {
     const {id} = params;
     const {newTitle:title, newDescription: description} =await request.json();
     await Topic.findByIdAndUpdate(id,{title,description});
-    return NextResponse.json({message:"topic updated"},{status:200})
+    return NextResponse.json({message:"topic updated"},{status:200,status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "https://next-noot-book.vercel.app",
+      },})
 }
 
 // export async function GET(request, {params}) {
