@@ -3,6 +3,23 @@ import Topic from "@/models/topic";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
+
+
+export async function OPTIONS() {
+    return NextResponse.json(
+      {},
+      {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "https://next-noot-book.vercel.app",
+          "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+      }
+    );
+  }
+
+
 export async function PUT(request,{params}) {
     const {id} = params;
     const {newTitle:title, newDescription: description} =await request.json();
@@ -37,7 +54,9 @@ export async function GET(request, {params}) {
         if (!topic) {
             return NextResponse.json({ error: "Topic not found" }, { status: 404 });
         }
-        return NextResponse.json({ topic }, { status: 200 });  // Return the found topic
+        return NextResponse.json({ topic }, { status: 200,headers: {
+            "Access-Control-Allow-Origin": "https://next-noot-book.vercel.app",
+          }, });  // Return the found topic
     } catch (error) {
         console.error("Error fetching topic:", error);  // Log the error for debugging
         return NextResponse.json({ error: "Error retrieving topic" }, { status: 500 });
