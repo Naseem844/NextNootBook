@@ -1,12 +1,16 @@
 "use client"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTopics } from "@/context/TopicContext";
+
+
 export default function EditTopicForm({id,title,description}){
     
     const [newTitle, setnewTitle] = useState(title);
     const [newDescription, setnewDescription] = useState(description);
     const router = useRouter();
-    
+    const {fetchTopics} = useTopics();
+
     console.log("after hitting the edit button we are on edit form with data",newTitle,newDescription);
 
     const handleSubmit= async(e)=>{
@@ -22,6 +26,7 @@ export default function EditTopicForm({id,title,description}){
             if(!res.ok){
                 throw new Error("failed to update topic")
             }
+            fetchTopics(); // Refresh the topics list
             router.push("/");
 
         } catch (error) {

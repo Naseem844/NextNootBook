@@ -4,13 +4,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { useTopics } from "@/context/TopicContext";
 
 export default function AddTopic(){
     const [title, settitle] = useState("");
     const [description, setdescription] = useState("");
 
     const router = useRouter();
-
+    const { fetchTopics } = useTopics();
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
@@ -26,6 +27,7 @@ export default function AddTopic(){
                 body: JSON.stringify({title,description}),
                 });
                 if(res.ok){
+                    fetchTopics(); // Refresh the topics list
                     router.push('/');
                 }
                 else{

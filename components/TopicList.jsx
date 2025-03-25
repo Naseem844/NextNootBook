@@ -1,33 +1,11 @@
-
-
+"use client";
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
+import { useTopics } from "@/context/TopicContext";
 
-// Fetch topics server-side
-export async function getServerSideProps() {
-  console.log("getServerSideProps() called")
-  try {
-    const res = await fetch("http://localhost:3000/api/topics", {
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      throw new Error("failed to fetch data");
-    }
-     // Log API response
-    return res.json();
-    
-    
-  } catch (error) {
-    console.log("Error loading topics", error);
-    return { props: { topics: [] } };
-  }
-}
-
-export default async function TopicList() {
-  const topics = await getServerSideProps();
-  //console.log("Topics data:", topics); // Debugging
+export default function TopicList() {
+  const { topics } = useTopics();
 
   if (!Array.isArray(topics) || topics.length === 0) {
     return <p>No topics available.</p>;
@@ -48,7 +26,6 @@ export default async function TopicList() {
             <RemoveBtn id={t._id} />
             <Link href={`/editTopic/${t._id}`}>
               <HiPencilAlt size={24} />
-              
             </Link>
           </div>
         </div>

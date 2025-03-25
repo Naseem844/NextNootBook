@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-
+import { TopicsProvider } from "@/context/TopicContext";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -28,8 +28,10 @@ export default function RootLayout({ children }) {
 
        <Navbar/>
        <div className=" mt-8">
-
+        <TopicsProvider>
+      
         {children}
+        </TopicsProvider>
        </div>
       </div>
       </body>
