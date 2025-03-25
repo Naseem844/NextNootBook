@@ -17,7 +17,7 @@ export default function EditTopicForm({id,title,description}){
         console.log("handleSubmit called mean update button clicked");
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:3000/api/topics/${id}`,{
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/topics/${id}`,{
                 method:"PUT",
                 headers:{"content-type":"application/json"},
                 body:JSON.stringify({newTitle,newDescription}),
